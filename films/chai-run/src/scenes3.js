@@ -184,8 +184,7 @@ export function s10(S) {
     c.save(); c.textAlign = 'center'; c.textBaseline = 'middle'; c.lineJoin = 'round';
     c.font = 'italic 900 300px Kanit'; c.strokeStyle = '#2a0e2e'; c.lineWidth = 26; const s = String(n).padStart(3, '0');
     c.strokeText(s, 500, 860); const gr = c.createLinearGradient(0, 720, 0, 1000); gr.addColorStop(0, '#fff6d0'); gr.addColorStop(.5, '#ffd27a'); gr.addColorStop(1, '#ff7a3c'); c.fillStyle = gr; c.fillText(s, 500, 860);
-    c.font = '700 64px "Barlow SC"'; c.fillStyle = '#fff6e0'; c.strokeStyle = '#2a0e2e'; c.lineWidth = 10; c.strokeText('SEEDHIYAAN  ×' + laps, 500, 1060); c.fillText('SEEDHIYAAN  ×' + laps, 500, 1060);
-    c.font = 'italic 900 120px Kanit'; c.strokeText(mm + ':' + sc, 500, 1260); c.fillStyle = '#8ff4ff'; c.fillText(mm + ':' + sc, 500, 1260);
+    c.font = '700 64px "Barlow SC"'; c.fillStyle = '#fff6e0'; c.strokeStyle = '#2a0e2e'; c.lineWidth = 10; const lbl = n + '/300 · ' + mm + ':' + sc; c.strokeText(lbl, 500, 1060); c.fillText(lbl, 500, 1060);
     c.restore();
   };
   layer(g, e, lg => { lg.save(); lg.translate(500, 1410); lg.scale(1.4, 1.4); stopwatch(lg, pal('coach', 'sun'), 0, 0, 60, { hand: lx * 20 }); lg.restore(); });

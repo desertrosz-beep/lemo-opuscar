@@ -141,7 +141,7 @@ export function s7(S) {
     const k2 = t >= HIT.drop ? 1 : 0; pose.drop = k * 140 + k2 * 200; pose.lean += k2 * .25; pose.legs[1].a1 -= k * .8; pose.legs[0].a2 += k * .4 + k2 * .8; pose.arms[1].b1 = .4 + k * 1.6;
     if (tau > TRIP) { trayOn = false; pose.arms[0] = { b1: 1.6, b2: .2 }; }
   }
-  const r = fig(g, e, 'chhotu', 'sun', pose, { view: 'side', expr: t < SNAP ? 'focus' : 'hurt', chappal: true, torn: t >= SNAP, tray: trayOn ? { n: 12 } : null, ph: tc }, px, ground, .62);
+  const r = fig(g, e, 'chhotu', 'sun', pose, { view: 'side', expr: t < SNAP ? 'focus' : 'hurt', chappal: true, torn: t >= SNAP, tray: trayOn ? { n: 11 } : null, ph: tc }, px, ground, .62);
   // the flying chappal
   if (t >= SNAP) { const k = (tau - SNAP); const cx = px + 40 - k * 260, cy = ground - 30 - k * 420 + k * k * 600; g.save(); g.translate(cx, cy); g.rotate(k * 9); g.fillStyle = '#8a8478'; g.fillRect(-40, -8, 80, 16); g.strokeStyle = '#3a6ad0'; g.lineWidth = 7; g.beginPath(); g.moveTo(-6, -8); g.lineTo(12, -30); g.stroke(); g.restore(); }
   // glasses in flight (ballistic in slow-mo time)
@@ -150,7 +150,7 @@ export function s7(S) {
   if (!trayOn && t < IMP) {
     const k = tau - TRIP;
     layer(g, e, (lg, le) => {
-      for (let i = 0; i < 12; i++) {
+      for (let i = 0; i < 11; i++) {
         const vx = 300 + R() * 700, vy = -600 - R() * 700, sp = (R() - .5) * 14;
         const x = tx0 - 90 + (i % 4) * 60 + vx * k, y = ty0 + vy * k + 2000 * k * k;
         lg.save(); lg.translate(x, y); lg.rotate(sp * k); glass(lg, le, C, 0, 0, 54, { level: .7, glow: .7 }); lg.restore();
@@ -172,7 +172,7 @@ export function s7(S) {
     g.fillStyle = rgba('#c8803a', .8); g.beginPath(); g.ellipse(640, ground + 40, 120 + k * 900, 18 + k * 60, 0, 0, TAU); g.fill();
     flash(g, .5 - k * 2);
   }
-  const n = t < TRIP ? 12 : t < IMP ? 12 : 0;
+  const n = t < IMP ? 11 : 0;   // one glass went to the newspaper man
   S.osd = c => osd(c, null, n + '/12', { icon: true, flash: t >= IMP, w: 300 });
   return t >= IMP ? { expo: 1.1 } : {};
 }

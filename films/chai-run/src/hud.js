@@ -32,7 +32,7 @@ export function caption(c, text, y, age, o = {}) {
     c.fillStyle = chrome(c, yy - s * .42, yy + s * .42); c.fillText(L, CX, yy);
     // light sweep across the letters
     const sw = (age - .15) / .55;
-    if (sw > 0 && sw < 1) {
+    if (sw > 0 && sw < 1 && !o.noSweep) {
       c.save(); c.globalCompositeOperation = 'source-atop';
       const x = CX - 500 + sw * 1000, gr = c.createLinearGradient(x - 60, 0, x + 60, 0);
       gr.addColorStop(0, 'rgba(255,255,255,0)'); gr.addColorStop(.5, 'rgba(255,255,255,.95)'); gr.addColorStop(1, 'rgba(255,255,255,0)');
@@ -40,7 +40,9 @@ export function caption(c, text, y, age, o = {}) {
     }
   });
   // star glint on the last letter
-  if (age > .35 && age < .9) { const k = 1 - Math.abs((age - .62) / .27); const last = lines[lines.length - 1], ww = c.measureText(last).width; star(c, CX + ww / 2 - s * .1, y + (lines.length - 1) / 2 * lh - s * .35, 40 * k); }
+  if (age > .35 && age < .9) { const k = 1 - Math.abs((age - .62) / .27);
+    if (o.glint) star(c, CX + c.measureText(lines[0]).width / 2 + s * .45, y - (lines.length - 1) / 2 * lh - s * .55, 54 * k);   // in open sky, clear of the letters
+    else { const last = lines[lines.length - 1], ww = c.measureText(last).width; star(c, CX + ww / 2 - s * .1, y + (lines.length - 1) / 2 * lh - s * .35, 40 * k); } }
   c.restore();
 }
 function star(c, x, y, r) {
@@ -84,7 +86,7 @@ export function downArrow(c, x, y, t, s = 1) {
 }
 export function hud(c, t) {
   c.clearRect(0, 0, W, H);
-  for (const [a, b, text, y, size] of CAPS) if (t >= a && t < b) caption(c, text, y, t - a, { size });
+  for (const [a, b, text, y, size, opt] of CAPS) if (t >= a && t < b) caption(c, text, y, t - a, { size, ...(opt || {}) });
   if (t >= 56.3 && t < 1403 / 24) downArrow(c, CX, 1468, t, .62);
 }
 export function texts(t) {   // for readcheck

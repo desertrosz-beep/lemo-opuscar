@@ -31,6 +31,6 @@ export const CAPS = [
   [3.0, F(107), '…ya ki?', 620],
   [18.6, F(526), '300 seedhiyaan…\n2 minute?!', 430],
   [35.0, F(946), 'Last place.', 640],
-  [F(1306), F(1403), 'Har roz ki daud…\nek din jeet banti hai.', 330],
+  [F(1306), F(1403), 'Har roz ki daud…\nek din jeet banti hai.', 330, null, { noSweep: true, glint: true }],
   [55.95, F(1403), 'Tumhari 300 seedhiyaan\nkya hain?', 1352, 84],
 ];

@@ -136,11 +136,34 @@ export function s12(S) {
   const br = Math.sin(lt * Math.PI * 1.6) * 10;
   const p = crouchPose(); p.bob = br;
   fig(g, e, 'chhotu', 'sun', p, { view: 'side', expr: lt > 1.4 ? 'focus' : 'breath', ph: step8(t), skinRim: '#ffd890' }, 470, 1840, .95);
-  // the starter's arm, pistol raised (foreground, top right)
-  layer(g, e, lg => { const C = pal('coach', 'sun'); lg.save(); lg.translate(1000, 420); lg.rotate(-.35);
-    cel(lg, [[-40, 0], [40, 0], [44, 520], [-44, 520]], { f: '#f4f2ee', s: '#b8b4c4', so: [-10, 0], l: '#444058', lw: 3 });
-    const hp = new Path2D(); hp.ellipse(0, -10, 40, 46, 0, 0, TAU); cel(lg, hp, { f: C.skin.f, s: C.skin.s, l: C.skin.l, lw: 2.4 });
-    cel(lg, [[-18, -40], [18, -40], [16, -170], [-14, -170]], { f: '#2a2834', h: '#6a6a80', hi: [[[4, -50], [10, -50], [10, -160], [4, -160]]], l: '#08080c', lw: 2.4 }); lg.restore(); });
+  // the starter's arm from the left edge, a starter revolver seen side-on against the violet sky; muzzle flash on the pistol beat
+  layer(g, e, (lg, le) => { const C = pal('coach', 'sun');
+    const PX = 230, PY = 520;                      // the fist
+    lg.save(); lg.translate(PX, PY); lg.rotate(.5);
+    cel(lg, [[-50, 40], [50, 40], [60, 900], [-60, 900]], { f: '#f4f2ee', s: '#b8b4c4', so: [-12, 0], l: '#444058', lw: 3 });          // white sleeve
+    cel(lg, [[-58, 40], [58, 40], [58, 78], [-58, 78]], { f: '#c8303a', l: '#4e1018', lw: 2.4 });
+    lg.restore();
+    lg.save(); lg.translate(PX, PY); lg.rotate(-1.25); lg.scale(1.5, 1.5);   // gun frame: barrel along +x (rotated to point up-right)
+    const M = { f: '#2a2834', s: '#14121a', h: '#9a9ab4', l: '#060608' };
+    cel(lg, [[-30, 0], [10, 0], [26, 70], [-6, 84], [-30, 60]], { f: '#6a4430', s: '#40281a', so: [-6, 0], l: '#1a0e08', lw: 2.4 });      // angled wooden grip
+    const tg = new Path2D(); tg.arc(30, 12, 18, 0, Math.PI); lg.strokeStyle = M.l; lg.lineWidth = 6; lg.stroke(tg);                    // trigger guard
+    line(lg, [[28, 4], [24, 22]], M.l, 4);                                                                                                // trigger
+    cel(lg, [[-34, -30], [60, -30], [60, 6], [-34, 6]], { f: M.f, s: M.s, so: [0, -8], h: M.h, ho: [0, 4], l: M.l, lw: 2.6 });            // frame
+    const cyl = new Path2D(); cyl.roundRect(-4, -40, 62, 52, 12); cel(lg, cyl, { f: '#3a3846', s: M.s, so: [0, -10], h: M.h, ho: [0, 5], l: M.l, lw: 2.6 });   // cylinder
+    for (const x of [14, 30, 46]) line(lg, [[x, -36], [x, 8]], '#14121a', 2);
+    cel(lg, [[58, -28], [190, -28], [190, -6], [58, -6]], { f: M.f, s: M.s, so: [0, -5], h: M.h, hi: [[[62, -26], [186, -26], [186, -21], [62, -21]]], l: M.l, lw: 2.6 });   // barrel
+    cel(lg, [[180, -34], [190, -34], [190, -28], [180, -28]], { f: M.f, l: M.l, lw: 1.6 });                                              // front sight
+    cel(lg, [[-34, -30], [-52, -48], [-44, -58], [-24, -36]], { f: M.f, l: M.l, lw: 2 });                                                // hammer
+    const fist = new Path2D(); fist.ellipse(-10, 40, 40, 46, .3, 0, TAU); cel(lg, fist, { f: C.skin.f, s: C.skin.s, so: [-8, -4], l: C.skin.l, lw: 2.4 });
+    for (const y of [24, 42, 60]) line(lg, [[14, y], [30, y + 4]], C.skin.l, 1.8);
+    lg.restore();
+    if (t >= HIT.pistol - 1 / 24) {   // muzzle flash at the barrel tip
+      const a = -1.25, mx = PX + Math.cos(a) * 1.5 * 205 - Math.sin(a) * 1.5 * -17, my = PY + Math.sin(a) * 1.5 * 205 + Math.cos(a) * 1.5 * -17;
+      lg.fillStyle = '#fff6d0'; lg.beginPath(); for (let k = 0; k < 16; k++) { const aa = k / 16 * TAU, r = k % 2 ? 46 : 170; lg.lineTo(mx + Math.cos(aa) * r, my + Math.sin(aa) * r); } lg.fill();
+      lg.fillStyle = '#ffb040'; lg.beginPath(); lg.arc(mx, my, 50, 0, TAU); lg.fill();
+      const gr = le.createRadialGradient(mx, my, 0, mx, my, 340); gr.addColorStop(0, '#fff2c0'); gr.addColorStop(.3, 'rgba(255,170,60,.8)'); gr.addColorStop(1, 'rgba(255,120,40,0)'); le.fillStyle = gr; le.beginPath(); le.arc(mx, my, 340, 0, TAU); le.fill();
+    }
+  });
   return { sat: .92 };
 }
 // ——— s13: the race ———
@@ -165,7 +188,9 @@ export function s13(S) {
   if (t < 43.9) {
     if (t < P0 + 2 / 24 + .02) {   // pistol impact frame (2 frames)
       const [c2, g2] = canvas(W, H); fig(g2, e, 'chhotu', 'sun', crouchPose(), { view: 'side', expr: 'focus' }, 430, 1800, .9);
-      impact(g, e, c2, 560, 1100, Math.floor((t - P0) * 24)); return { bloom: .3 };
+      impact(g, e, c2, 560, 1100, Math.floor((t - P0) * 24));
+      g.save(); g.translate(355, 225); g.fillStyle = Math.floor((t - P0) * 24) % 2 ? '#2a0e2e' : '#ffcf6a'; g.beginPath(); for (let k = 0; k < 16; k++) { const a = k / 16 * TAU, r = k % 2 ? 50 : 190; g.lineTo(Math.cos(a) * r, Math.sin(a) * r); } g.fill(); g.restore();
+      return { bloom: .3 };
     }
     const k = ss((t - 42.0) / .45);
     const run = runPose((tc * 2.4) % 1, { speed: 1.1, lean: .45 }), cr = crouchPose();
