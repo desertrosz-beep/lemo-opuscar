@@ -136,6 +136,6 @@ for e in ev['ev']:
         i = int(e['t'] * SR); a, b = i - int(.01 * SR), i + int(.35 * SR); duck[a:b] = np.minimum(duck[a:b], np.linspace(.5, 1, b - a) ** 2)
 mix = music * .82 * duck[:, None] + fx + bed
 mix[int((1403 / 24) * SR):] *= 0   # hard stop with the picture
-mix = np.stack([limit(mix[:, 0], .95), limit(mix[:, 1], .95)], 1)
+mix = np.stack([limit(mix[:, 0] * .8, .7), limit(mix[:, 1] * .8, .7)], 1)
 sf.write(os.path.join(HERE, 'out/mix.wav'), mix, SR, subtype='PCM_24')
 print('mix', mix.shape, 'peak', float(np.abs(mix).max()))
