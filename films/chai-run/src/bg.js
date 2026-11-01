@@ -197,3 +197,68 @@ export function trackSidePlate(w, h, seed = 21, o = {}) {
   for (let x = 0; x < w; x += 300) { g.fillStyle = rgba('#3a1640', .2); g.fill(poly([[x, sb + 120], [x + 20, sb + 120], [x - 600, h], [x - 680, h]])); }
   return { c, e: ec, hy, track: sb + 120 };
 }
+
+// —— DISTRICT MEET poster (generic, drawn) ——  (x,y) top-left, w wide; curl 0..1 = a peeling corner
+export function poster(g, x, y, w, o = {}) {
+  const h = w * 1.42, s = w / 300;
+  g.save(); g.translate(x, y); g.rotate(o.rot || 0); g.scale(s, s);
+  g.fillStyle = 'rgba(40,10,40,.35)'; g.fillRect(8, 10, 300, 426);
+  g.fillStyle = '#ffe2a0'; g.fillRect(0, 0, 300, 426);
+  g.fillStyle = '#c8303a'; g.fillRect(0, 0, 300, 112);
+  g.fillStyle = '#fff2d0'; g.textAlign = 'center'; g.textBaseline = 'middle';
+  g.font = 'italic 900 50px Kanit'; g.fillText('DISTRICT', 150, 42); g.fillText('MEET', 150, 88);
+  // runner pictogram on a sun
+  g.fillStyle = '#ff9a3c'; g.beginPath(); g.arc(150, 222, 76, 0, TAU); g.fill();
+  g.strokeStyle = '#2a0e2e'; g.lineWidth = 13; g.lineCap = 'round'; g.lineJoin = 'round';
+  g.beginPath(); g.arc(166, 166, 13, 0, TAU); g.fillStyle = '#2a0e2e'; g.fill();
+  g.beginPath(); g.moveTo(158, 186); g.lineTo(140, 240); g.lineTo(176, 268); g.moveTo(140, 240); g.lineTo(108, 286); g.moveTo(154, 200); g.lineTo(192, 212); g.moveTo(154, 200); g.lineTo(118, 222); g.stroke();
+  g.fillStyle = '#2a0e2e'; g.font = '700 30px "Barlow SC"'; g.fillText('OPEN RACE · 400 M', 150, 330);
+  g.font = '700 26px "Barlow SC"'; g.fillText('SCHOOL TRACK · SUNDAY 6 AM', 150, 368);
+  g.fillStyle = '#c8303a'; g.fillRect(30, 392, 240, 6);
+  if (o.tape) { g.fillStyle = 'rgba(240,240,225,.8)'; for (const [tx, ty, a] of [[0, 0, -.6], [300, 0, .6], [0, 426, .6], [300, 426, -.6]]) { g.save(); g.translate(tx, ty); g.rotate(a); g.fillRect(-34, -11, 68, 22); g.restore(); } }
+  g.restore();
+}
+
+// —— chai stall front (exterior, morning): wooden counter, awning, kettle, glasses; poster spot on the left post ——
+export function stallFront(w, h, seed = 13) {
+  const [c, g] = canvas(w, h), [ec, e] = canvas(w, h), R = rng(seed);
+  e.fillStyle = '#000'; e.fillRect(0, 0, w, h);
+  const sky = skyPlate(w, h, 1000, w * .8, 860, seed, { cloudH: 600 });
+  g.drawImage(sky.c, 0, 0); e.drawImage(sky.e, 0, 0);
+  let x = -40; while (x < w) { const hw = 160 + R() * 160, hh = 300 + R() * 300; g.save(); g.globalAlpha = .7; house(g, e, x, 1040 - hh, hw, hh, R, { shadow: false }); g.restore(); x += hw + 8; }
+  // stall box
+  const sx = 120, sy = 700, sw = w - 240, sh = 900;
+  g.fillStyle = '#3a6ad0'; g.fillRect(sx, sy, sw, sh); g.fillStyle = '#2a4aa0'; g.fillRect(sx, sy, 24, sh); g.fillRect(sx + sw - 24, sy, 24, sh);
+  g.fillStyle = '#2a1a22'; g.fillRect(sx + 40, sy + 160, sw - 80, 440);   // dark opening
+  g.fillStyle = '#ffd27a'; g.fillRect(sx + 40, sy + 160, sw - 80, 6);
+  // awning stripes
+  for (let i = 0; i < 9; i++) { g.fillStyle = i % 2 ? '#f6efe4' : '#e8404a'; g.fill(poly([[sx - 40 + i * (sw + 80) / 9, sy + 150], [sx - 40 + (i + 1) * (sw + 80) / 9, sy + 150], [sx - 20 + (i + 1) * (sw + 40) / 9, sy], [sx - 20 + i * (sw + 40) / 9, sy]])); }
+  g.fillStyle = '#ffe2a0'; g.font = 'italic 900 64px Kanit'; g.textAlign = 'center'; g.textBaseline = 'middle';
+  g.fillStyle = '#c8303a'; g.fillRect(sx + sw / 2 - 220, sy - 110, 440, 100); g.fillStyle = '#fff2d0'; g.fillText('CHAI', sx + sw / 2, sy - 60);
+  // counter
+  vgrad(g, sx - 20, sy + 600, sw + 40, 300, [[0, '#a8683a'], [1, '#5a3420']]);
+  g.fillStyle = '#d0905a'; g.fillRect(sx - 20, sy + 596, sw + 40, 14);
+  // kettle + glasses on the counter (inside light)
+  for (let k = 0; k < 6; k++) { const gx = sx + 300 + k * 52; g.fillStyle = 'rgba(232,238,244,.6)'; g.fillRect(gx, sy + 550, 32, 46); g.fillStyle = '#c8803a'; g.fillRect(gx + 2, sy + 562, 28, 32); }
+  e.fillStyle = 'rgba(255,170,70,.25)'; e.fillRect(sx + 40, sy + 160, sw - 80, 440);
+  // lamp bulb inside
+  g.fillStyle = '#fff2c0'; g.beginPath(); g.arc(sx + sw / 2, sy + 220, 16, 0, TAU); g.fill(); e.fillStyle = '#ffc060'; e.beginPath(); e.arc(sx + sw / 2, sy + 220, 60, 0, TAU); e.fill();
+  // ground
+  vgrad(g, 0, sy + sh, w, h - sy - sh, [[0, '#c89a8a'], [1, '#8a6070']]);
+  g.fillStyle = 'rgba(58,30,78,.25)'; g.fill(poly([[sx, sy + sh], [sx + sw, sy + sh], [sx + sw - 700, h], [sx - 900, h]]));
+  return { c, e: ec, post: [sx + 30, sy + 200], counter: sy + 600, ground: sy + sh };
+}
+
+// —— a generic city bus (side view), (x, y) = bottom-left, length L ——
+export function bus(g, e, x, y, L, k = 0) {
+  const H2 = L * .34;
+  g.save(); g.translate(x, y);
+  cel(g, poly([[0, -40], [0, -H2 + 20], [20, -H2], [L - 60, -H2], [L, -H2 + 60], [L, -40]]), { f: '#e85a3a', s: '#a83a2a', sh: [[[0, -H2 * .45], [L, -H2 * .45], [L, -40], [0, -40]]], l: '#3a1410', lw: 3 });
+  g.fillStyle = '#f6efe4'; g.fillRect(0, -H2 * .5, L, 18);
+  for (let i = 0; i < 7; i++) { const wx = 40 + i * (L - 140) / 7; g.fillStyle = '#4a3a5a'; g.fillRect(wx, -H2 + 40, (L - 160) / 7 - 14, H2 * .32); g.fillStyle = 'rgba(255,220,160,.6)'; g.fillRect(wx + 6, -H2 + 44, 8, H2 * .3); }
+  g.fillStyle = '#5a7aa8'; g.fill(poly([[L - 70, -H2 + 30], [L - 8, -H2 + 70], [L - 8, -H2 * .55], [L - 70, -H2 * .55]]));
+  g.fillStyle = '#fff2d0'; g.font = `italic 900 ${Math.round(H2 * .12)}px Kanit`; g.textBaseline = 'middle'; g.fillText('CITY BUS', 60, -H2 * .32);
+  for (const wx of [L * .18, L * .78]) { const r = H2 * .16; g.save(); g.translate(wx, -40); g.rotate(k); cel(g, (() => { const p = new Path2D(); p.arc(0, 0, r, 0, TAU); return p; })(), { f: '#22202a', l: '#08080c', lw: 3 }); g.fillStyle = '#9a9aa8'; g.fillRect(-r * .35, -r * .08, r * .7, r * .16); g.fillRect(-r * .08, -r * .35, r * .16, r * .7); g.restore(); }
+  g.restore();
+  if (e) { e.fillStyle = '#ffd890'; e.beginPath(); e.arc(x + L - 10, y - 70, 14, 0, TAU); e.fill(); }
+}

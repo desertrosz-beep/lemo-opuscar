@@ -5,9 +5,9 @@ import { limb } from './limb.js';
 
 const sin = Math.sin, cos = Math.cos;
 export const DIM = {
-  chhotu: { hip: 520, torso: 270, hs: 1.28, thigh: 288, shin: 276, ua: 186, fa: 168, w: 1, foot: 104 },
+  chhotu: { hip: 452, torso: 236, hs: 1.5, thigh: 250, shin: 238, ua: 160, fa: 144, w: .94, foot: 92 },
   coach: { hip: 590, torso: 330, hs: 1.12, thigh: 310, shin: 296, ua: 206, fa: 186, w: 1.18, foot: 116 },
-  kid: { hip: 530, torso: 275, hs: 1.26, thigh: 292, shin: 280, ua: 188, fa: 170, w: 1.04, foot: 112 },
+  kid: { hip: 466, torso: 244, hs: 1.46, thigh: 258, shin: 246, ua: 166, fa: 150, w: .98, foot: 100 },
 };
 const at = (p, a, L) => [p[0] + sin(a) * L, p[1] + cos(a) * L];   // angle 0 = straight down, + = forward (+x)
 

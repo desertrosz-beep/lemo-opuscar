@@ -59,9 +59,9 @@ function eye(g, P, cx, cy, w, h, dir, fs, E, detail) {
     // lower lid: a short thin line on the outer side + one faint lower lash
     line(g, [[X(.95), outY + h * .12], [X(.5), botY + 1], [X(.05), botY + 1.5]], mix(P.skin.l, P.skin.f, .35), LS * .8);
   }
-  const t = h * (E.male ? .15 : .19);
+  const t = h * (E.kid ? .1 : E.male ? .15 : .19), fl = E.kid ? .9 : 2.1;
   if (open > .08) {   // thick upper lash line, thickened and flicked up at the outer corner
-    cel(g, [[X(-1.03), inY + 1, 1], [X(-.4), topY + h * .05 - t * .6], [X(.3), topY - t * .75], [X(.95), outY - t], [X(1.25), outY - t * 2.1, 1],
+    cel(g, [[X(-1.03), inY + 1, 1], [X(-.4), topY + h * .05 - t * .6], [X(.3), topY - t * .75], [X(.95), outY - t], [X(1.25 - (E.kid ? .15 : 0)), outY - t * fl, 1],
       [X(1.03), outY + t * .5], [X(.3), topY + t * .45], [X(-.4), topY + h * .05 + t * .35], [X(-.98), inY + t * .6, 1]], { f: lash });
     if (!E.male) for (let k = 0; k < 3; k++) {   // 3 lashes flicking out at the outer corner
       const u = .55 + k * .2, bx = X(u), by = topY + (outY - topY) * ((u - .3) / .7) - t * .5;
@@ -255,14 +255,26 @@ for (const v of Object.values(HAIRS.coach)) { const sc = (p) => [p[0] * .9, -10 
 HAIRS.kidA = { q: { ...HAIRS.chhotu.q, spikes: [[-36, -106, 10, -110, 60, -120, 10], [10, -104, 50, -90, 86, -96, 8]], locks: HAIRS.chhotu.q.locks.slice(0, 3).map(l => [l[0], l[1], l[2], l[3], l[4] + 18, l[5] - 30, 8]) } };
 HAIRS.kidB = { q: { ...HAIRS.chhotu.q, cap: [[-94, 20], [-106, -40], [-86, -100], [-34, -128], [22, -124], [64, -96], [74, -52], [64, -14], [46, -30], [0, -50], [-56, -26]], spikes: [], locks: HAIRS.chhotu.q.locks.slice(0, 4) } };
 
+// child proportions: lower face shortened and rounded, eyes a little larger
+const CV = {};
+function childView(view) {
+  if (CV[view]) return CV[view];
+  const V = VIEWS[view], sq = ([x, y, s]) => { const yy = y > 20 ? 20 + (y - 20) * .8 : y, xx = y > 30 ? x * (1 + .06 * Math.min(1, (y - 30) / 60)) : x * 1.03; return s ? [xx, yy, s] : [xx, yy]; };
+  const out = { ...V, face: V.face.map(sq), chinShadow: V.chinShadow.map(sq), farShade: V.farShade.map(sq), neck: V.neck.map(([x, y]) => [x * .82, y > 80 ? y : sq([x, y])[1]]),
+    eyes: V.eyes.map(e => ({ ...e, w: e.w * 1.08, h: e.h * 1.1, y: e.y + 2 })), mouth: V.mouth ? { ...V.mouth, y: 20 + (V.mouth.y - 20) * .8 - 2, w: V.mouth.w * .9 } : null,
+    blush: V.blush.map(([x, y, rx, ry]) => [x, y - 6, rx, ry]),
+    nose: P => g => { g.save(); g.translate(0, 20); g.scale(1, .8); g.translate(0, -20); V.nose(P)(g); g.restore(); } };
+  return (CV[view] = out);
+}
 // head(g, P, o): o.who = 'chhotu' | 'coach' | 'kidA' | 'kidB'; o.view = 'q' | 'side' | 'front'; o.expr; o.light = [lx,ly]
 export function head(g, P, o = {}) {
-  const view = o.view || 'q', V = VIEWS[view], who = o.who || 'chhotu';
+  const view = o.view || 'q', who = o.who || 'chhotu', kid = who !== 'coach';
+  const V = kid ? childView(view) : VIEWS[view];
   const Hh = (HAIRS[who][view] || HAIRS[who].q);
-  const E = { ...EXPR[o.expr || 'neutral'], ...(o.E || {}), male: true };
+  const E = { ...EXPR[o.expr || 'neutral'], ...(o.E || {}), male: true, kid };
   if (o.look) E.look = o.look; if (o.open != null) E.open = o.open; if (o.mouth) E.mouth = o.mouth; if (o.lid != null) E.lid = o.lid;
   if (who === 'coach') { E.open = (E.open ?? 1) * .82; E.iris = (E.iris || 1) * .9; }
-  const ph = o.ph || 0, wind = o.wind ?? .3, rim = o.rim;
+  const ph = o.ph || 0, wind = o.wind ?? .3, rim = o.rim || P.hairRim;
   const hairSt = { f: P.hair.f, s: P.hair.s, h: P.hair.h, l: P.hair.l, lw: LH, rim };
   const lx = o.light?.[0] ?? -1, ly = o.light?.[1] ?? -.8;
   const SO = k => [lx * k, ly * k];

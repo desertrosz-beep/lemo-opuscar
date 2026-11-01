@@ -3,9 +3,10 @@ import { canvas, W, H } from './cel.js';
 import { makePost } from './post.js';
 import { DUR, SCENES, sceneAt } from './timeline.js';
 import { hud, texts } from './hud.js';
-import { skyPlate, stairPlate, streetPlate, stallPlate, trackSidePlate } from './bg.js';
+import { skyPlate, stairPlate, streetPlate, stallPlate, trackSidePlate, stallFront } from './bg.js';
 import * as S1 from './scenes1.js';
 import * as S2 from './scenes2.js';
+import * as S3 from './scenes3.js';
 import { events } from './events.js';
 const qs = new URLSearchParams(location.search);
 const [sc, g] = canvas(W, H), [gc, e] = canvas(W, H), [ovc, ov] = canvas(W, H);
@@ -18,9 +19,10 @@ const A = {
   stairs: stairPlate(1600, 3600, 7),
   street: streetPlate(3200, 1920, 11),
   stall: stallPlate(1080, 1920, 5),
+  front: stallFront(1080, 2300, 13),
   sky: skyPlate(1080, 3200, 1900, 700, 1700, 4),
 };
-const FN = { ...S1, ...S2 };
+const FN = { ...S1, ...S2, ...S3 };
 const RAW = { bloom: 0, halo: 0, soft: 0, flick: 0, lift: 0, contrast: 0, fade: 0, sat: 1, tint: [1, 1, 1], scan: 0, grille: 0, bleed: 1, rshift: 0, glow: 0, corner: 0, noiseA: 0, power: 1, track: 0, expo: 1 };
 // sunrise grade: warmer tint and violet shadow lift instead of the demo's night settings
 const GRADE = { tint: [1.03, .98, .94], shadowTint: [.22, .1, .2], bloom: .7, halo: .3, thr: .88, sk: .14 };

@@ -21,11 +21,11 @@ export function finish(S, T, mode) {
   g.fillStyle = '#f2ece0'; g.fillRect(postX + 70, FAR - 560, 14, 560);
   const broken = mode === 'end' && T > 1.95;
   // rival (far lane): straining, in sneakers
-  const rx = (mode === 'open' ? 560 - ss(T / 2.0) * 190 : 600 - ss(T / 2.3) * 300), rp = runPose(tc * .5 + .3, { speed: .95 });
+  const T2 = Math.min(T, 2), ex = Math.max(0, T - 1.6), rx = 560 - ss(T2 / 2.0) * 190 - ex * ex * 60, rp = runPose(tc * .5 + .3, { speed: .95 });
   // chhotu (near lane), barefoot, overtaking
-  const cx = mode === 'open' ? 200 + ss(T / 2.0) * 470 : 260 + ss(T / 2.3) * 470;
+  const cx = 200 + ss(T2 / 2.0) * 470 + ex * ex * 140;   // s14 = s1 exactly until the tape
   const cp = runPose(tc * .55, { speed: 1.05, lean: .42 });
-  const r = fig(g, e, 'chhotu', 'sun', cp, { view: 'side', expr: 'focus', ph: tc, skinRim: '#ffd890', smear: mode === 'end' && T > 1.4, ghostPoses: [runPose(tc * .55 - .06), runPose(tc * .55 - .03)] }, cx, FAR, .8);
+  const r = fig(g, e, 'chhotu', 'sun', cp, { view: 'side', expr: mode === 'end' && T > 2.5 ? 'grin' : 'focus', ph: tc, skinRim: '#ffd890', smear: false, ghostPoses: [runPose(tc * .55 - .06), runPose(tc * .55 - .03)] }, cx, FAR, .8);
   // rival in the near lane (foreground, cut by the frame bottom), falling behind
   fig(g, e, 'kidA', 'sun', rp, { view: 'side', expr: 'hurt', shoe: true, ph: tc }, rx, NEAR, .95);
   // tape (unbroken: a line between post tops; broken: two fluttering ends)
@@ -55,7 +55,7 @@ export function s1(S) {
   return {};
 }
 export function s14(S) {
-  finish(S, Math.min(S.lt * .7, 2.45), 'end');
+  finish(S, S.lt, 'end');
   return {};
 }
 

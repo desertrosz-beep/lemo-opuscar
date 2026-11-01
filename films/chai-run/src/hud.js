@@ -74,9 +74,9 @@ export function osd(c, label, value, o = {}) {
   c.strokeText(value, tx, vy); c.fillText(value, tx, vy);
   c.restore();
 }
-export function downArrow(c, x, y, t) {
-  const b = [0, 10, 18, 10][Math.floor(t * 8) % 4];
-  c.save(); c.translate(x, y + b); c.lineJoin = 'round';
+export function downArrow(c, x, y, t, s = 1) {
+  const b = [0, 6, 10, 6][Math.floor(t * 8) % 4];
+  c.save(); c.translate(x, y + b); c.scale(s, s); c.lineJoin = 'round';
   const P = new Path2D(); P.moveTo(-30, -70); P.lineTo(30, -70); P.lineTo(30, -10); P.lineTo(62, -10); P.lineTo(0, 56); P.lineTo(-62, -10); P.lineTo(-30, -10); P.closePath();
   c.shadowColor = rgba('#ff8a2a', .9); c.shadowBlur = 22; c.strokeStyle = '#ff7a2a'; c.lineWidth = 26; c.stroke(P); c.shadowBlur = 0;
   c.strokeStyle = '#2a0e2e'; c.lineWidth = 16; c.stroke(P);
@@ -84,8 +84,8 @@ export function downArrow(c, x, y, t) {
 }
 export function hud(c, t) {
   c.clearRect(0, 0, W, H);
-  for (const [a, b, text, y] of CAPS) if (t >= a && t < b) caption(c, text, y, t - a);
-  if (t >= 56.3 && t < 1403 / 24) downArrow(c, CX, 1458, t);
+  for (const [a, b, text, y, size] of CAPS) if (t >= a && t < b) caption(c, text, y, t - a, { size });
+  if (t >= 56.3 && t < 1403 / 24) downArrow(c, CX, 1468, t, .62);
 }
 export function texts(t) {   // for readcheck
   const out = [];

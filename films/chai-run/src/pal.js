@@ -78,6 +78,7 @@ export function pal(who, light = 'sun') {
   if (sk) Object.assign(out.skin, sk);
   out.eye = CHARS[who].eye; out.white_eye = light === 'backlit' ? '#806070' : CHARS[who].white_eye;
   if (light !== 'backlit') out.chai = CHARS[who].chai;
+  if (who === 'coach') { out.hair = { ...CHARS.coach.hair }; if (light === 'sun' || light === 'backlit' || light === 'shade') out.hairRim = { c: '#ffd27a', d: [-3, 5] }; }   // the coach's hair stays white in every lighting (gold rim per shot)
   return (cache[k] = out);
 }
 // the sky + world palette

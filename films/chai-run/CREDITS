@@ -1,0 +1,9 @@
+CHAI RUN — third-party material
+
+Music: "chai_run_music_edit.mp3", supplied by the user (the only music in the film). The user is responsible for its rights.
+Fonts (SIL Open Font License 1.1, from Google Fonts):
+  - Kanit Black Italic / ExtraBold Italic — Cadson Demak (fonts/OFL-Kanit.txt)
+  - Barlow Semi Condensed Bold — Jeremy Tribby (fonts/OFL-Barlow.txt)
+Pictures: everything drawn in code (canvas 2D + WebGL), no stock images, no generated images.
+Sound effects: synthesized procedurally in mix.py (numpy/scipy), no samples.
+Engine: cel shading, CRT/tape pass and effect helpers adapted from the Lemo-Opuscar library (see the library LICENSE).

@@ -130,13 +130,19 @@ export function s11(S) {
 // ——— s12: near silence, the crouch, the pistol ———
 export function s12(S) {
   const { g, e, t, lt, A } = S, tc = step12(t);
-  plate(g, e, A.track, 1100, 0, 1.15 + lt * .06);
-  const br = Math.sin(t * Math.PI * 1.2) * 8;
+  const z = 1.12 + lt * .05;
+  plate(g, e, A.track, 1100, 0, z);
+  g.fillStyle = '#f6efe4'; g.fill(poly([[700, 1500], [726, 1500], [790, 1920], [752, 1920]]));   // start line
+  const br = Math.sin(lt * Math.PI * 1.6) * 10;
   const p = crouchPose(); p.bob = br;
-  fig(g, e, 'chhotu', 'sun', p, { view: 'side', expr: lt > 1.6 ? 'focus' : 'breath', ph: tc, skinRim: '#ffd890' }, 430, 1800, .9);
-  return { sat: .9 };
+  fig(g, e, 'chhotu', 'sun', p, { view: 'side', expr: lt > 1.4 ? 'focus' : 'breath', ph: step8(t), skinRim: '#ffd890' }, 470, 1840, .95);
+  // the starter's arm, pistol raised (foreground, top right)
+  layer(g, e, lg => { const C = pal('coach', 'sun'); lg.save(); lg.translate(1000, 420); lg.rotate(-.35);
+    cel(lg, [[-40, 0], [40, 0], [44, 520], [-44, 520]], { f: '#f4f2ee', s: '#b8b4c4', so: [-10, 0], l: '#444058', lw: 3 });
+    const hp = new Path2D(); hp.ellipse(0, -10, 40, 46, 0, 0, TAU); cel(lg, hp, { f: C.skin.f, s: C.skin.s, l: C.skin.l, lw: 2.4 });
+    cel(lg, [[-18, -40], [18, -40], [16, -170], [-14, -170]], { f: '#2a2834', h: '#6a6a80', hi: [[[4, -50], [10, -50], [10, -160], [4, -160]]], l: '#08080c', lw: 2.4 }); lg.restore(); });
+  return { sat: .92 };
 }
-
 // ——— s13: the race ———
 function raceSide(S, lt, o) {
   const { g, e, A, t } = S, tc = step12(t);
@@ -181,8 +187,14 @@ export function s13(S) {
   // the crowd rises
   const rise = ss((t - 49.9) / .8) * 60 + [0, 6, -4, 3][Math.floor(tc * 12) % 4];
   plate(g, e, A.track, 760, 240 - rise, 2.0 + (t - 49.9) * .1);
-  const R = rng(Math.floor(tc * 12) % 3 + 40);
-  for (let i = 0; i < 70; i++) { const x = R() * W, y = 300 + R() * 1100 - rise, up = R() > .3; if (!up) continue; g.strokeStyle = mix('#b47850', '#6a3a3a', R()); g.lineWidth = 14; g.lineCap = 'round'; g.beginPath(); g.moveTo(x, y); g.lineTo(x + (R() - .5) * 40, y - 90 - R() * 60); g.stroke(); }
+  const R = rng(40), dr = Math.floor(tc * 12) % 3;
+  for (let i = 0; i < 46; i++) {   // arms thrown up, a 3-drawing cycle
+    const x = R() * W, y = 420 + R() * 900 - rise, ph = R() * 3, up = ((dr + Math.floor(ph)) % 3) / 2, len = 110 + R() * 60, sk = mix('#c88458', '#7a4a3a', R());
+    const tipx = x + (R() - .5) * 50, tipy = y - len * (.5 + up * .5);
+    g.strokeStyle = mix('#ff6a9a', '#3fc4b4', R()); g.lineWidth = 26; g.lineCap = 'round'; g.beginPath(); g.moveTo(x, y + 30); g.lineTo(x + (tipx - x) * .4, y - len * .2); g.stroke();
+    g.strokeStyle = sk; g.lineWidth = 18; g.beginPath(); g.moveTo(x + (tipx - x) * .4, y - len * .2); g.lineTo(tipx, tipy); g.stroke();
+    g.fillStyle = sk; g.beginPath(); g.arc(tipx, tipy - 6, 16, 0, TAU); g.fill(); g.strokeStyle = '#3a1a1a'; g.lineWidth = 2; g.stroke();
+  }
   return { expo: 1.05 };
 }
 
@@ -206,9 +218,10 @@ export function s15(S) {
   const C = pal('chhotu', 'shade');
   const lift = ss(lt2 / .6);
   const pose = standPose({ lean: -.05, arms: [{ b1: lerp(1.2, 2.45, lift), b2: lerp(.4, .25, lift) }, { b1: -.1, b2: .3 }], headTilt: -.15 });
-  const r = fig(g, e, 'chhotu', 'shade', pose, { view: 'q', expr: 'grin', ph: tc, rim: { c: '#ffb050', d: [-6, 6] }, skinRim: '#ffc070', look: [.2, -.6], C }, 380, 2300 + lt2 * 30, 1.3);
-  layer(g, e, (lg, le) => glass(lg, le, pal('chhotu', 'sun'), r.sx + 10, r.sy + 10, 90, { glow: 1.2 }));
-  flare(e, r.sx + 10, r.sy - 40, .9 + Math.sin(t * 3) * .05, '#ffc070', { streak: 900 });
-  return { bloom: .95, halo: .4 };
+  const r = fig(g, e, 'chhotu', 'shade', pose, { view: 'q', expr: 'grin', ph: tc, rim: { c: '#ffb050', d: [-6, 6] }, skinRim: '#ffc070', look: [.2, -.6], C }, 380, 2000 + lt2 * 24, 1.3);
+  // the glass: dark rim against the sun, amber chai catching the light; glow kept small so it stays readable
+  layer(g, e, (lg, le) => { glass(lg, le, { ...pal('chhotu', 'sun'), glass: { f: '#f8fbff', s: '#a8b4c4', h: '#ffffff', l: '#2a2040' } }, r.sx + 14, r.sy + 18, 118, { glow: .18 }); });
+  flare(e, 700, 1700 - (1230 - lt2 * 50), .5, '#ffc070', { streak: 700, ghosts: false });
+  return { bloom: .5, halo: .22, thr: .95 };
 }
 export function black(S) { S.g.fillStyle = '#000'; S.g.fillRect(0, 0, W, H); return { expo: 0 }; }
