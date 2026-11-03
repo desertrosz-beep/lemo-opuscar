@@ -1,0 +1,19 @@
+FIVE LAMPS — WHY DIWALI IS CELEBRATED
+A shadow puppet film for Narratude.
+
+Third-party assets used in the film
+- Narration voice: Kokoro TTS v1.0 (kokoro-onnx), voice "af_heart" — model and voices under the Apache License 2.0
+  https://github.com/thewh1teagle/kokoro-onnx · https://huggingface.co/hexgrad/Kokoro-82M
+- Typeface: Cormorant Garamond (Christian Thalmann / Catharsis Fonts) — SIL Open Font License 1.1 (fonts/OFL.txt)
+  https://github.com/google/fonts/tree/main/ofl/cormorantgaramond
+- Music samples (CC0 1.0): VS Chamber Orchestra: Community Edition (Versilian Studios) — flute (bansuri line), oboe (shehnai line)
+  https://github.com/sgossner/VSCO-2-CE
+
+Made in code, no third-party assets
+- All puppets, scenery, carving patterns, plaques, the Lamp Rail and the stage were drawn procedurally in code for this film.
+- Percussion (dholak, manjira, ghungroo, temple bells), the tanpura drone and all sound effects were synthesised in numpy;
+  the plucked string uses physical modelling (Karplus–Strong). All melodies are original.
+- Rendering and mixing tools: the Lemo-Opuscar toolkit (MIT licence).
+
+Stories: traditional and public-domain religious narratives (Ramayana; Samudra Manthan; Krishna and Narakasura;
+Bandi Chhor Divas; the nirvana of Mahavira). No existing artwork, puppet, recording or melody was copied.

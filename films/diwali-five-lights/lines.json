@@ -1,0 +1,237 @@
+[
+ {
+  "id": "H1",
+  "t": 1.2,
+  "text": "Before you light a single deeya this year, know why.",
+  "sub": "Before you light a single diya this year, know why.",
+  "voice": "af_heart",
+  "speed": 0.88,
+  "asr": "Before you light a single D of this year, know why."
+ },
+ {
+  "id": "H2",
+  "t": 4.9,
+  "text": "Five stories. Five lamps. And almost nobody knows all of them.",
+  "sub": "Five stories. Five lamps. And almost nobody knows all of them.",
+  "voice": "af_heart",
+  "speed": 0.88
+ },
+ {
+  "id": "R1",
+  "t": 14.7,
+  "text": "The first lamp is for a prince.",
+  "sub": "The first lamp is for a prince.",
+  "voice": "af_heart",
+  "speed": 0.88
+ },
+ {
+  "id": "R2",
+  "t": 17.4,
+  "text": "Ram was sent into the forest for fourteen years, with Sita, and his brother Lakshman.",
+  "sub": "Ram was sent into the forest for 14 years, with Sita, and his brother Lakshman.",
+  "voice": "af_heart",
+  "speed": 0.88,
+  "asr": "Ram was sent into the forest for 14 years, with Sita, and his brother Lakshman."
+ },
+ {
+  "id": "R3",
+  "t": 24.1,
+  "text": "There, the demon king Ravana stole See-tah away, to Lanka.",
+  "sub": "There, the demon king Ravana stole Sita away, to Lanka.",
+  "voice": "af_heart",
+  "speed": 0.88,
+  "asr": "There, the Demon King Ravana Stole sitar away, to Lanka."
+ },
+ {
+  "id": "R4",
+  "t": 29.1,
+  "text": "Ram crossed the sea on a bridge of stones. With Hanuman and an army of monkeys, he fought Ravana, and won.",
+  "sub": "Ram crossed the sea on a bridge of stones. With Hanuman and an army of monkeys, he fought Ravana, and won.",
+  "voice": "af_heart",
+  "speed": 0.88
+ },
+ {
+  "id": "R5",
+  "t": 40.0,
+  "text": "When Ram came home, it was the darkest night of the month.",
+  "sub": "When Ram came home, it was the darkest night of the month.",
+  "voice": "af_heart",
+  "speed": 0.88
+ },
+ {
+  "id": "R6",
+  "t": 44.4,
+  "text": "So the people of Uh-yodh-yah lit a lamp in every window, to light his way.",
+  "sub": "So the people of Ayodhya lit a lamp in every window, to light his way.",
+  "voice": "af_heart",
+  "speed": 0.88,
+  "asr": "So the people of Ayodhya lit a lamp in every window, to light his way."
+ },
+ {
+  "id": "L1",
+  "t": 53.6,
+  "text": "The second lamp is for a goddess.",
+  "sub": "The second lamp is for a goddess.",
+  "voice": "af_heart",
+  "speed": 0.88
+ },
+ {
+  "id": "L2",
+  "t": 56.4,
+  "text": "Long ago, gods and demons churned the cosmic ocean, with a mountain for a rod, and a great serpent for a rope.",
+  "sub": "Long ago, gods and demons churned the cosmic ocean, with a mountain for a rod, and a great serpent for a rope.",
+  "voice": "af_heart",
+  "speed": 0.88
+ },
+ {
+  "id": "L3",
+  "t": 64.4,
+  "text": "Out of the waves rose Lakshmi, goddess of wealth and good fortune.",
+  "sub": "Out of the waves rose Lakshmi, goddess of wealth and good fortune.",
+  "voice": "af_heart",
+  "speed": 0.88
+ },
+ {
+  "id": "L4",
+  "t": 69.8,
+  "text": "So on Diwali night, families clean their homes, open their doors, and light lamps, to welcome her in.",
+  "sub": "So on Diwali night, families clean their homes, open their doors, and light lamps, to welcome her in.",
+  "voice": "af_heart",
+  "speed": 0.88
+ },
+ {
+  "id": "K1",
+  "t": 78.4,
+  "text": "The third lamp is for freedom.",
+  "sub": "The third lamp is for freedom.",
+  "voice": "af_heart",
+  "speed": 0.88
+ },
+ {
+  "id": "K2",
+  "t": 81.0,
+  "text": "The demon Narakasura had locked sixteen thousand women in his fortress.",
+  "sub": "The demon Narakasura had locked 16,000 women in his fortress.",
+  "voice": "af_heart",
+  "speed": 0.88,
+  "asr": "The demon Naracasura had locked 16,000 women in his fortress."
+ },
+ {
+  "id": "K3",
+  "t": 86.3,
+  "text": "Krishna and his queen, Sutt-yah-bhaama, rode out against him, and set every one of them free.",
+  "sub": "Krishna and his queen Satyabhama rode out against him, and set every one of them free.",
+  "voice": "af_heart",
+  "speed": 0.88,
+  "asr": "Krishna and his queen, Satyabhama, rode out against him and set every one of them free."
+ },
+ {
+  "id": "K4",
+  "t": 92.9,
+  "text": "In the south of India, that victory is Deepa-vuh-lee itself.",
+  "sub": "In the south of India, that victory is Deepavali itself.",
+  "voice": "af_heart",
+  "speed": 0.88,
+  "asr": "In the south of India, that victory is deep of Ali itself."
+ },
+ {
+  "id": "G1",
+  "t": 99.0,
+  "text": "The fourth lamp is for a promise.",
+  "sub": "The fourth lamp is for a promise.",
+  "voice": "af_heart",
+  "speed": 0.88
+ },
+ {
+  "id": "G2",
+  "t": 101.6,
+  "text": "The emperor had imprisoned the sixth Sikh Guru, Guru Hargobind, in Gwalior Fort.",
+  "sub": "The emperor had imprisoned the sixth Sikh Guru, Guru Hargobind, in Gwalior Fort.",
+  "voice": "af_heart",
+  "speed": 0.88,
+  "asr": "The emperor had imprisoned the sixth Sikh Guru, Guru Hargabind, in Gwalior Fort."
+ },
+ {
+  "id": "G3",
+  "t": 107.6,
+  "text": "When he was freed, he would not leave alone. Fifty-two kings held the tails of his robe, and walked out with him.",
+  "sub": "When he was freed, he would not leave alone. 52 kings held the tails of his robe, and walked out with him.",
+  "voice": "af_heart",
+  "speed": 0.88,
+  "asr": "When he was freed, he would not leave alone. 52 kings held the tails of his robe, and walked out with him."
+ },
+ {
+  "id": "G4",
+  "t": 115.0,
+  "text": "Sikhs call it Bandi Chhor Divas, the day of release. And the Golden Temple shines with light.",
+  "sub": "Sikhs call it Bandi Chhor Divas, the day of release. And the Golden Temple shines with light.",
+  "voice": "af_heart",
+  "speed": 0.88
+ },
+ {
+  "id": "M1",
+  "t": 123.6,
+  "text": "The fifth lamp is for a teacher.",
+  "sub": "The fifth lamp is for a teacher.",
+  "voice": "af_heart",
+  "speed": 0.88
+ },
+ {
+  "id": "M2",
+  "t": 126.4,
+  "text": "On this night, Jains believe, Lord Mahavira attained nirvana at Pavapuri.",
+  "sub": "On this night, Jains believe, Lord Mahavira attained nirvana at Pavapuri.",
+  "voice": "af_heart",
+  "speed": 0.88,
+  "asr": "On this night, Jane's believe, Lord Mahavira attained nirvana at Pavapuri."
+ },
+ {
+  "id": "M3",
+  "t": 132.4,
+  "text": "The great light of knowledge was gone. So people lit small lamps, to keep it with them.",
+  "sub": "The great light of knowledge was gone. So people lit small lamps, to keep it with them.",
+  "voice": "af_heart",
+  "speed": 0.88
+ },
+ {
+  "id": "P1",
+  "t": 147.4,
+  "text": "Five stories. Five lamps.",
+  "sub": "Five stories. Five lamps.",
+  "voice": "af_heart",
+  "speed": 0.88
+ },
+ {
+  "id": "P2",
+  "t": 149.9,
+  "text": "And every one of them ends the same way.",
+  "sub": "And every one of them ends the same way.",
+  "voice": "af_heart",
+  "speed": 0.88
+ },
+ {
+  "id": "P3",
+  "t": 152.8,
+  "text": "Darkness loses.",
+  "sub": "Darkness loses.",
+  "voice": "af_heart",
+  "speed": 0.88
+ },
+ {
+  "id": "C1",
+  "t": 155.6,
+  "text": "So this year, when you light your deeya, you're lighting all five.",
+  "sub": "So this year, when you light your diya, you're lighting all five.",
+  "voice": "af_heart",
+  "speed": 0.88,
+  "asr": "So this year, when you light your DIA, you're lighting all five."
+ },
+ {
+  "id": "C2",
+  "t": 160.8,
+  "text": "Happy Diwali.",
+  "sub": "Happy Diwali.",
+  "voice": "af_heart",
+  "speed": 0.88
+ }
+]
