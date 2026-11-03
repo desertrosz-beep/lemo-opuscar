@@ -95,13 +95,13 @@ const actPlaqueX = k => clamp(RAIL_X[k] + 40, 560, 1360);
 function drawPlaques(t, C) {
   // title
   const ts = pl(t, T.titleIn, T.titleOut, .5, .7);
-  if (ts) { plaqueAt(C, STG.title, 960, 470, ts); if (t >= T.titleSet && t < T.titleOut) TXT.push({ id: 'title', text: 'FIVE LAMPS / WHY DIWALI IS CELEBRATED / a shadow puppet tale', box: plaqueBox(C, STG.title, 960, 470) }); }
+  if (ts) { plaqueAt(C, STG.title, 960, 470, ts); if (t >= T.titleSet && t < T.titleOut) TXT.push({ id: 'title', text: 'FIVE LAMPS WHY DIWALI IS CELEBRATED a shadow puppet tale', box: plaqueBox(C, STG.title, 960, 470) }); }
   for (let k = 0; k < 5; k++) {
-    const st = pl(t, CATCH[k], STORY[k] + .25, .45, .8), x = actPlaqueX(k), y = 760;
-    if (st) { plaqueAt(C, STG.acts[k], x, y, st); if (t >= CATCH[k] + .45 && t < STORY[k] + .25) TXT.push({ id: 'act' + k, text: ['THE FIRST LAMP / HOME', 'THE SECOND LAMP / FORTUNE', 'THE THIRD LAMP / FREEDOM', 'THE FOURTH LAMP / RELEASE', 'THE FIFTH LAMP / KNOWLEDGE'][k], box: plaqueBox(C, STG.acts[k], x, y) }); }
+    const st = pl(t, CATCH[k], STORY[k] + .65, .35, .8), x = actPlaqueX(k), y = 760;
+    if (st) { plaqueAt(C, STG.acts[k], x, y, st); if (t >= CATCH[k] + .35 && t < STORY[k] + .65) TXT.push({ id: 'act' + k, text: ['THE FIRST LAMP HOME', 'THE SECOND LAMP FORTUNE', 'THE THIRD LAMP FREEDOM', 'THE FOURTH LAMP RELEASE', 'THE FIFTH LAMP KNOWLEDGE'][k], box: plaqueBox(C, STG.acts[k], x, y) }); }
   }
   const es = pl(t, T.endIn, 1e9, .7);
-  if (es) { plaqueAt(C, STG.end, 960, 470, es); if (t >= T.endIn + .7) TXT.push({ id: 'end', text: 'HAPPY DIWALI / five stories · five lamps · one light', box: plaqueBox(C, STG.end, 960, 470) }); }
+  if (es) { plaqueAt(C, STG.end, 960, 470, es); if (t >= T.endIn + .7) TXT.push({ id: 'end', text: 'HAPPY DIWALI five stories · five lamps · one light', box: plaqueBox(C, STG.end, 960, 470) }); }
 }
 
 // ================= scenes (draw onto the transmission canvas) =================
@@ -533,9 +533,9 @@ function events() {
   const ev = [], add = (type, t, o = {}) => ev.push({ type, t: +(+t).toFixed(3), ...o });
   add('clap', T.clap); add('pilot', T.pilot);
   T.rings.forEach((r, i) => add('liftoff', r, { v: .5 + i * .1 }));
-  add('rodtap', T.titleIn + .45); add('liftoff', T.titleOut);
+  add('rodtap', T.titleSet); add('liftoff', T.titleOut);
   for (let k = 0; k < 5; k++) {
-    add('match', MATCH[k], { k }); add('catch', CATCH[k], { k, quiet: k === 4 ? 1 : 0 }); add('rodtap', CATCH[k] + .45, { v: .5 }); add('liftoff', STORY[k] + .25, { v: .6 });
+    add('match', MATCH[k], { k }); add('catch', CATCH[k], { k, quiet: k === 4 ? 1 : 0 }); add('rodtap', CATCH[k] + .35, { v: .5 }); add('liftoff', STORY[k] + .65, { v: .6 });
   }
   for (let i = 0; i < 18; i++) add('step', 16.9 + i * .34, { v: .4 + .2 * (i % 2) });
   add('wind', 16.8, { d: 6.4 });
@@ -573,5 +573,6 @@ window.EV = events(); window.T = T;
 window.DUR = DUR;
 if (qs.get('test')) { const tm = await import('./test.js'); window.render = t => { fr.clearRect(0, 0, W, H); const o = tm.modelSheet(tr, fr, qs.get('v') || 'a'); GL.render(trc, frc, o); }; }
 else window.render = render;
+const SEG = qs.get('seg'); if (SEG) { const [a, b] = SEG.split(':').map(Number); const r0 = window.render; window.render = t => r0(t + a); window.DUR = b - a; const tx = window.TEXTS; window.TEXTS = t => tx(t + a); }
 window.render(parseFloat(qs.get('t') ?? '30'));
 window.READY = true;

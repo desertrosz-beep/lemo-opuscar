@@ -9,7 +9,7 @@ export const CATCH = ACT.map(a => +(a + 1.0).toFixed(3));
 export const PEAKF = [0, 1, 2, 3, 4].map(i => +(143.4 + i * BEAT).toFixed(3));
 export const SNUFF = [160.0, 159.6, 159.2, 158.8, 158.4];          // backstage lamp k+1 and rail diya k go out (5 → 1)
 export const T = {
-  clap: .35, pilot: .6, rings: [2.6, 3.8, 5.0, 6.2, 7.3], titleIn: 7.9, titleSet: 8.4, titleOut: 13.0,
+  clap: .35, pilot: .6, rings: [2.6, 3.8, 5.0, 6.2, 7.3], titleIn: 7.7, titleSet: 8.2, titleOut: 13.0,
   // Ram
   deer0: 23.2, swap: 24.6, grab: 25.9, flip: 26.5, whip: [26.7, 27.05], ravOut: 28.0,
   bridgeOn: 29.0, monk: [30.0, 33.2], leap: [32.3, 33.8],
