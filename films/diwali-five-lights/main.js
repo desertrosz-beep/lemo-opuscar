@@ -97,8 +97,9 @@ function drawPlaques(t, C) {
   const ts = pl(t, T.titleIn, T.titleOut, .5, .7);
   if (ts) { plaqueAt(C, STG.title, 960, 470, ts); if (t >= T.titleSet && t < T.titleOut) TXT.push({ id: 'title', text: 'FIVE LAMPS WHY DIWALI IS CELEBRATED a shadow puppet tale', box: plaqueBox(C, STG.title, 960, 470) }); }
   for (let k = 0; k < 5; k++) {
-    const st = pl(t, CATCH[k], STORY[k] + .65, .35, .8), x = actPlaqueX(k), y = 760;
-    if (st) { plaqueAt(C, STG.acts[k], x, y, st); if (t >= CATCH[k] + .35 && t < STORY[k] + .65) TXT.push({ id: 'act' + k, text: ['THE FIRST LAMP HOME', 'THE SECOND LAMP FORTUNE', 'THE THIRD LAMP FREEDOM', 'THE FOURTH LAMP RELEASE', 'THE FIFTH LAMP KNOWLEDGE'][k], box: plaqueBox(C, STG.acts[k], x, y) }); }
+    const PIN = CATCH[k] - (k === 1 ? .4 : 0);     // act 2's story opens tilted up, so its plaque leaves the frame early: press it on sooner
+    const st = pl(t, PIN, STORY[k] + .65, .35, .8), x = actPlaqueX(k), y = 760;
+    if (st) { plaqueAt(C, STG.acts[k], x, y, st); if (t >= PIN + .35 && t < STORY[k] + .65) TXT.push({ id: 'act' + k, text: ['THE FIRST LAMP HOME', 'THE SECOND LAMP FORTUNE', 'THE THIRD LAMP FREEDOM', 'THE FOURTH LAMP RELEASE', 'THE FIFTH LAMP KNOWLEDGE'][k], box: plaqueBox(C, STG.acts[k], x, y) }); }
   }
   const es = pl(t, T.endIn, 1e9, .7);
   if (es) { plaqueAt(C, STG.end, 960, 470, es); if (t >= T.endIn + .7) TXT.push({ id: 'end', text: 'HAPPY DIWALI five stories · five lamps · one light', box: plaqueBox(C, STG.end, 960, 470) }); }
@@ -535,7 +536,7 @@ function events() {
   T.rings.forEach((r, i) => add('liftoff', r, { v: .5 + i * .1 }));
   add('rodtap', T.titleSet); add('liftoff', T.titleOut);
   for (let k = 0; k < 5; k++) {
-    add('match', MATCH[k], { k }); add('catch', CATCH[k], { k, quiet: k === 4 ? 1 : 0 }); add('rodtap', CATCH[k] + .35, { v: .5 }); add('liftoff', STORY[k] + .65, { v: .6 });
+    add('match', MATCH[k], { k }); add('catch', CATCH[k], { k, quiet: k === 4 ? 1 : 0 }); add('rodtap', CATCH[k] + .35 - (k === 1 ? .4 : 0), { v: .5 }); add('liftoff', STORY[k] + .65, { v: .6 });
   }
   for (let i = 0; i < 18; i++) add('step', 16.9 + i * .34, { v: .4 + .2 * (i % 2) });
   add('wind', 16.8, { d: 6.4 });
